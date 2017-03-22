@@ -84,8 +84,8 @@ var spec = {
       "type": "shape",
       "from": {"data": "counties"},
       "encode": {
-        "enter": { "tooltip": {"signal": "format(datum.unemp.rate, '0.1%')"}},
-        "update": { "fill": {"scale": "color", "field": "unemp.rate"} },
+        "enter": { "tooltip": {"signal": "format(datum.unemp.Amount, '0.1%')"}},
+        "update": { "fill": {"scale": "color", "field": "unemp.Amount"} },
         "hover": { "fill": {"value": "red"} }
       },
       "transform": [
