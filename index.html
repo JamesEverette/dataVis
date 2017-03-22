@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title> Title </title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <script src="https://jameseverette.github.io/dataVis/promise.min.js"></script>
+    <script src="https://jameseverette.github.io/dataVis/vega.js"></script>
+  </head>
+  <body>
+    <div class="fill">
+      <header>
+      </header>
+
+      <section>
+        
+<div class="page-centered page-main">
+  
+  <section class="page-content">
+    <h1> blah blah </h1>
+    
+<div class="example">
+<div class="embed">
+  <div id="county-unemployment" class="view"></div>
+
+</div>
+
+<script>
+var spec = {
+  "$schema": "https://vega.github.io/schema/vega/v3.0.json",
+  "width": 960,
+  "height": 500,
+  "autosize": "none",
+  "data": [
+    {
+      "name": "unemp",
+      "url": "unemployment.tsv",
+      "format": {"type": "tsv", "parse": "auto"}
+    },
+    {
+      "name": "counties",
+      "url": "us-10m.json",
+      "format": {"type": "topojson", "feature": "counties"},
+      "transform": [
+        { "type": "lookup", "from": "unemp", "key": "id", "fields": ["id"], "as": ["unemp"] },
+        { "type": "filter", "expr": "datum.unemp != null" }
+      ]
+    }
+  ],
+  "projections": [
+    {
+      "name": "projection",
+      "type": "albersUsa"
+    }
+  ],
+  "scales": [
+    {
+      "name": "color",
+      "type": "quantize",
+      "domain": [0, 0.15],
+      "range": {"scheme": "blues-9"}
+    }
+  ],
+  "legends": [
+    {
+      "fill": "color",
+      "orient": "bottom-right",
+      "title": "Unemployment",
+      "format": "0.1%",
+      "encode": {
+        "symbols": {
+          "update": {
+            "shape": {"value": "square"},
+            "stroke": {"value": "#ccc"},
+            "strokeWidth": {"value": 0.2}
+          }
+        }
+      }
+    }
+  ],
+  "marks": [
+    {
+      "type": "shape",
+      "from": {"data": "counties"},
+      "encode": {
+        "enter": { "tooltip": {"signal": "format(datum.unemp.rate, '0.1%')"}},
+        "update": { "fill": {"scale": "color", "field": "unemp.rate"} },
+        "hover": { "fill": {"value": "red"} }
+      },
+      "transform": [
+        { "type": "geoshape", "projection": "projection" }
+      ]
+    }
+  ]
+};
+function image(view, type) {
+  return function(event) {
+    event.preventDefault();
+    view.toImageURL(type).then(function(url) {
+      var link = document.createElement('a');
+      link.setAttribute('href', url);
+      link.setAttribute('target', '_blank');
+      link.setAttribute('download', 'county-unemployment.' + type);
+      link.dispatchEvent(new MouseEvent('click'));
+    }).catch(function(error) { console.error(error); });
+  };
+}
+var view = new vega.View(vega.parse(spec), {
+  loader: vega.loader({baseURL: 'https://jameseverette.github.io/dataVis/'}),
+  logLevel: vega.Warn,
+  renderer: 'canvas'
+}).initialize('#county-unemployment').hover().run();
+
+</script>
+</div>
+  </section>
+</div>
+      </section>
+    </div>
+
+    <footer>
+      
+    </footer>
+  </body>
+</html>
