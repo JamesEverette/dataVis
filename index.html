@@ -44,8 +44,8 @@ var spec = {
     "url": "https://jameseverette.github.io/dataVisHw3/us-10m.json",
     "format": {"type": "topojson", "feature": "states"},
     "transform": [
-        { "type": "lookup", "from": "unemp", "key": "State_Code", "fields": ["State_Code"], "as": ["unemp"] },
-        { "type": "filter", "expr": "datum.unemp != null" }
+        { "type": "lookup", "from": "losses", "key": "State_Code", "fields": ["State_Code"], "as": ["losses"] },
+        { "type": "filter", "expr": "datum.losses != null" }
       ]
     }
 ],
@@ -83,8 +83,8 @@ var spec = {
       "type": "shape",
       "from": {"data": "states"},
       "encode": {
-        "enter": { "tooltip": {"signal": "format(datum.unemp.Amount, '0.1%')"}},
-        "update": { "fill": {"scale": "color", "field": "unemp.Amount"} },
+        "enter": { "tooltip": {"signal": "format(datum.losses.Amount, '0.1%')"}},
+        "update": { "fill": {"scale": "color", "field": "losses.Amount"} },
         "hover": { "fill": {"value": "red"} }
       },
       "transform": [
