@@ -34,6 +34,11 @@ var spec = {
   "padding": {"top": 0, "left": 0, "right": 0, "bottom": 0},
   "signals": [],
   "data": [
+    {
+      "name": "losses",
+      "url": "https://jameseverette.github.io/dataVisHw3/losses2015_transformed.csv",
+      "format": {"type": "csv", "parse": "auto"}
+    },
   {
     "name": "states",
     "url": "https://jameseverette.github.io/dataVisHw3/us-10m.json",
@@ -43,12 +48,6 @@ var spec = {
         { "type": "filter", "expr": "datum.unemp != null" }
       ]
     }
-  },
-  {
-    "name": "losses",
-    "url": "https://jameseverette.github.io/dataVisHw3/losses2015_transformed.csv",
-    "format": {"type": "csv", "parse": "auto"}
-  }
 ],
   "scales": [
     {
