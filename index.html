@@ -44,8 +44,7 @@ var spec = {
     "url": "https://jameseverette.github.io/dataVisHw3/us-10m.json",
     "format": {"type": "topojson", "feature": "states"},
     "transform": [
-        { "type": "lookup", "from": "losses", "key": "State_Code", "fields": ["State_Code"], "as": ["losses"] },
-        { "type": "filter", "expr": "datum.losses != null" }
+        { "type": "geoshape" }
       ]
     }
 ],
