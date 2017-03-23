@@ -40,6 +40,7 @@ var spec = {
     "format": {"type": "topojson", "feature": "states"},
     "transform": [
     {
+      "type": "geoshape",
       "projection": "projection",
       "fields": ["State_Code"]
     },
