@@ -61,8 +61,6 @@ var spec = {
   {
     "name": "projection",
     "type": "albersUsa",
-    "scale": 1200,
-    "translate": [{"signal": "width / 2"}, {"signal": "height / 2"}]
   }
 ],
   "marks": [
@@ -78,7 +76,20 @@ var spec = {
         "path": {"field": "path"}
       }
     }
-  }
+  },
+    {
+      "type": "shape",
+      "from": {"data": "states"},
+      "encode": {
+        "enter": { "tooltip": {"signal": "format(datum.losses.Amount, '0.1%')"}},
+        "update": { "fill": {"scale": "color", "field": "losses.Amount"} },
+        "hover": { "fill": {"value": "red"} }
+      },
+      "transform": [
+        { "type": "geoshape", "projection": "projection" }
+      ]
+    }
+  ]
 };
   
   
