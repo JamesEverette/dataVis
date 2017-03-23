@@ -37,7 +37,13 @@ var spec = {
   {
     "name": "states",
     "url": "https://github.com/JamesEverette/dataVisHw3/us-10m.json",
-    "format": {"type": "topojson", "feature": "states"}
+    "format": {"type": "topojson", "feature": "states"},
+    "transform": [
+      {
+        "type": "geopath",
+        "projection": "projection"
+      }
+    ]
   }
 ],
   "scales": [],
