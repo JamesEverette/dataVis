@@ -79,7 +79,7 @@ var spec = {
   },
     {
       "type": "shape",
-      "from": {"data": "losses"},
+      "from": {"data": "states"},
       "encode": {
         "enter": { "tooltip": {"signal": "format(datum.losses.Amount, '0.1%')"}},
         "update": { "fill": {"scale": "color", "field": "losses.Amount"} },
