@@ -40,9 +40,8 @@ var spec = {
     "format": {"type": "topojson", "feature": "states"},
     "transform": [
     {
-      "type": "geoshape",
-      "projection": "projection",
-      "fields": ["State_Code"]
+        { "type": "lookup", "from": "unemp", "key": "State_Code", "fields": ["State_Code"], "as": ["unemp"] },
+        { "type": "filter", "expr": "datum.unemp != null" }
 
     }
     ]
@@ -53,7 +52,14 @@ var spec = {
     "format": {"type": "csv", "parse": "auto"}
   }
 ],
-  "scales": [],
+  "scales": [
+    {
+      "name": "color",
+      "type": "quantize",
+      "domain": [0, 0.15],
+      "range": {"scheme": "blues-9"}
+    }
+  ],
   "projections": [
   {
     "name": "projection",
@@ -77,21 +83,17 @@ var spec = {
     }
   },
     {
-  "type": "symbol",
-  "from": {"data": "losses"},
-  "encode": {
-    "enter": {
-      "size": {"value": 16},
-      "fill": {"value": "steelblue"},
-      "fillOpacity": {"value": 0.8},
-      "stroke": {"value": "white"},
-      "strokeWidth": {"value": 1.5}
-    },
-    "update": {
-      "State_Code": {"field": "State_Code"}
+      "type": "shape",
+      "from": {"data": "states"},
+      "encode": {
+        "enter": { "tooltip": {"signal": "format(datum.unemp.Amount, '0.1%')"}},
+        "update": { "fill": {"scale": "color", "field": "unemp.Amount"} },
+        "hover": { "fill": {"value": "red"} }
+      },
+      "transform": [
+        { "type": "geoshape", "projection": "projection" }
+      ]
     }
-  }
-}
 ]
 };
   
