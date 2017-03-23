@@ -39,9 +39,16 @@ var spec = {
     "url": "https://github.com/JamesEverette/dataVisHw3/us-10m.json",
     "format": {"type": "topojson", "feature": "states"}
   }
-],,
+],
   "scales": [],
-  "projections": [],
+  "projections": [
+  {
+    "name": "projection",
+    "type": "albersUsa",
+    "scale": 1200,
+    "translate": [{"signal": "width / 2"}, {"signal": "height / 2"}]
+  }
+],
   "marks": []
 }
 
