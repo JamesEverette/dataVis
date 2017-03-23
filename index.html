@@ -29,88 +29,15 @@
 <script>
 var spec = {
   "$schema": "https://vega.github.io/schema/vega/v3.0.json",
-  "width": 960,
-  "height": 500,
-  "autosize": "none",
-  "data": [
-    {
-      "name": "unemp",
-      "url": "losses2015_transformed.csv",
-      "format": {"type": "csv", "parse": "auto"}
-    },
-    {
-      "name": "counties",
-      "url": "us-10m.json",
-      "format": {"type": "topojson", "feature": "counties"},
-      "transform": [
-        { "type": "lookup", "from": "unemp", "key": "State_Code", "fields": ["State_Code"], "as": ["unemp"] },
-        { "type": "filter", "expr": "datum.unemp != null" }
-      ]
-    }
-  ],
-  "projections": [
-    {
-      "name": "projection",
-      "type": "mercator"
-    }
-  ],
-  "scales": [
-    {
-      "name": "color",
-      "type": "quantize",
-      "domain": [0, 0.15],
-      "range": {"scheme": "blues-9"}
-    }
-  ],
-  "legends": [
-    {
-      "fill": "color",
-      "orient": "bottom-right",
-      "title": "Unemployment",
-      "format": "0.1%",
-      "encode": {
-        "symbols": {
-          "update": {
-            "shape": {"value": "square"},
-            "stroke": {"value": "#ccc"},
-            "strokeWidth": {"value": 0.2}
-          }
-        }
-      }
-    }
-  ],
-  "marks": [
-    {
-      "type": "shape",
-      "from": {"data": "counties"},
-      "encode": {
-        "enter": { "tooltip": {"signal": "format(datum.unemp.rate, '0.1%')"}},
-        "update": { "fill": {"scale": "color", "field": "unemp.rate"} },
-        "hover": { "fill": {"value": "red"} }
-      },
-      "transform": [
-        { "type": "geoshape", "projection": "projection" }
-      ]
-    }
-  ]
-};
-function image(view, type) {
-  return function(event) {
-    event.preventDefault();
-    view.toImageURL(type).then(function(url) {
-      var link = document.createElement('a');
-      link.setAttribute('href', url);
-      link.setAttribute('target', '_blank');
-      link.setAttribute('download', 'county-unemployment.' + type);
-      link.dispatchEvent(new MouseEvent('click'));
-    }).catch(function(error) { console.error(error); });
-  };
+  "width": 900,
+  "height": 560,
+  "padding": {"top": 0, "left": 0, "right": 0, "bottom": 0},
+  "signals": [],
+  "data": [],
+  "scales": [],
+  "projections": [],
+  "marks": []
 }
-var view = new vega.View(vega.parse(spec), {
-  loader: vega.loader({baseURL: 'https://jameseverette.github.io/dataVisHw3/'}),
-  logLevel: vega.Warn,
-  renderer: 'canvas'
-}).initialize('#county-unemployment').hover().run();
 
 </script>
 </div>
