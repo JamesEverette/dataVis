@@ -55,7 +55,21 @@ var spec = {
     "translate": [{"signal": "width / 2"}, {"signal": "height / 2"}]
   }
 ],
-  "marks": []
+  "marks": [
+  {
+    "type": "path",
+    "from": {"data": "states"},
+    "encode": {
+      "enter": {
+        "fill": {"value": "#dedede"},
+        "stroke": {"value": "white"}
+      },
+      "update": {
+        "path": {"field": "path"}
+      }
+    }
+  }
+]
 }
 
 </script>
