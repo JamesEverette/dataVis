@@ -70,7 +70,26 @@ var spec = {
     }
   }
 ]
+};
+  
+  
+  function image(view, type) {
+  return function(event) {
+    event.preventDefault();
+    view.toImageURL(type).then(function(url) {
+      var link = document.createElement('a');
+      link.setAttribute('href', url);
+      link.setAttribute('target', '_blank');
+      link.setAttribute('download', 'county-unemployment.' + type);
+      link.dispatchEvent(new MouseEvent('click'));
+    }).catch(function(error) { console.error(error); });
+  };
 }
+var view = new vega.View(vega.parse(spec), {
+  loader: vega.loader({baseURL: 'https://jameseverette.github.io/dataVisHw3/'}),
+  logLevel: vega.Warn,
+  renderer: 'canvas'
+}).initialize('#county-unemployment').hover().run();
 
 </script>
 </div>
