@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title> Title </title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <script src="https://jameseverette.github.io/dataVis/promise.min.js"></script>
+    <script src="https://jameseverette.github.io/dataVis/vega.js"></script>
+  </head>
+  <body>
+    <div class="fill">
+      <header>
+      </header>
+
+      <section>
+        
+<div class="page-centered page-main">
+  
+  <section class="page-content">
+    <h1> </h1>
+    
+<div class="example">
+<div class="embed">
+  <div id="losses2015_transformed" class="view"></div>
+  <div id="barChart" class="view"></div>
+
+</div>
+
+<script>
+var spec = {
+  "width": 870,
+  "height": 500,
+  "autosize": "none",
+  "data": [
+    {
+      "name": "losses",
+      "url": "losses2015_transformed3.csv",
+      "format": {"type": "csv", "parse": "auto"}
+    },
+    {
+      "name": "states",
+      "url": "us-10m.json",
+      "format": {"type": "topojson", "feature": "states"},
+      "transform": [
+        { "type": "lookup", "from": "losses", "key": "id", "fields": ["id"], "as": ["losses"] },
+        { "type": "filter", "expr": "datum.losses != null" }
+       ]
+    }
+  ],
+  "projections": [
+    {
+      "name": "projection",
+      "type": "albersUsa"
+    }
+  ],
+  "scales": [
+    {
+      "name": "color",
+      "type": "quantize",
+       "domain": [6000, 542361665],
+       "range": {"scheme": "blues-9"},
+       "reverse": true
+    }
+  ],
+  "marks": [
+    {
+      "type": "shape",
+      "from": {"data": "states"},
+      "encode": {
+        "update": { "fill": {"scale": "color", "field": "losses.rate"},
+      "stroke": {"value": "black"}},
+        "hover": { "fill": {"value": "gray"} },
+      },
+      "transform": [
+        { "type": "geoshape", "projection": "projection" }
+      ]
+    }
+  ]
+};
+
+var view = new vega.View(vega.parse(spec), {
+  loader: vega.loader({baseURL: '/'}),
+  renderer: 'canvas'
+}).initialize('#losses2015_transformed').hover().run();
+
+
+
+
+
+
+
+var spec2 = {
+  "$schema": "https://vega.github.io/schema/vega/v3.0.json",
+  "width": 400,
+  "height": 200,
+  "padding": 0,
+  "autosize": "fit",
+
+  "data": [
+    {
+      "name": "table",
+      "url": "losses2015_transformed2.csv",
+      "format": {"type": "csv", "parse": "auto"}
+    }
+  ],
+
+  "signals": [
+    {
+      "name": "tooltip",
+      "value": {},
+      "on": [
+        {"events": "rect:mouseover", "update": "datum"},
+        {"events": "rect:mouseout",  "update": "{}"}
+      ]
+    }
+  ],
+
+  "scales": [
+    {
+      "name": "xscale",
+      "type": "band",
+      "domain": {"data": "table", "field": "category"},
+      "range": "width"
+      //"range":[0,800]
+    },
+    {
+      "name": "yscale",
+      "domain": {"data": "table", "field": "amount"},
+      "nice": true,
+      "range": "height"
+      //"range" : [9000,2842780070]
+    }
+  ],
+
+  "axes": [
+    { "orient": "bottom", "scale": "xscale" },
+    { "orient": "left", "scale": "yscale" }
+  ],
+
+  "marks": [
+    {
+      "type": "rect",
+      "from": {"data":"table"},
+      "encode": {
+        "enter": {
+          "x": {"scale": "xscale", "field": "category", "offset": 1},
+          "width": {"scale": "xscale", "band": 1, "offset": -1},
+          "y": {"scale": "yscale", "field": "amount"},
+          "y2": {"scale": "yscale", "value": 0}
+        },
+        "update": {
+          "fill": {"value": "steelblue"}
+        },
+        "hover": {
+          "fill": {"value": "red"}
+        }
+      }
+    },
+    {
+      "type": "text",
+      "encode": {
+        "enter": {
+          "align": {"value": "center"},
+          "baseline": {"value": "bottom"},
+          "fill": {"value": "#333"}
+        },
+        "update": {
+          "x": {"scale": "xscale", "signal": "tooltip.category", "band": 0.5},
+          "y": {"scale": "yscale", "signal": "tooltip.amount", "offset": -2},
+          "text": {"signal": "tooltip.amount"},
+          "fillOpacity": [
+            {"test": "datum === tooltip", "value": 0},
+            {"value": 1}
+          ]
+        }
+      }
+    }
+  ]
+};
+
+var view2 = new vega.View(vega.parse(spec2), {
+  loader: vega.loader({baseURL: '/'}),
+  logLevel: vega.Warn,
+  renderer: 'canvas'
+}).initialize('#barChart').hover().run();
+
+
+</script>
+</div>
+  </section>
+</div>
+      </section>
+    </div>
+    I divided values in barchart by 100,000 because I could not get my range to display bars when it was 6,000 to over 5 million.
+
+    <footer>
+      
+    </footer>
+  </body>
+</html>
