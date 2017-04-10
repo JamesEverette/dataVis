@@ -5,7 +5,7 @@ body {
 </style> -->
 
 <h1>
-  <a href="/d3/index.html">D3 Visualization</a>
+  <a href="dataVis/d3/index.html">D3 Visualization</a>
 </h1>
 
 <h1> 
