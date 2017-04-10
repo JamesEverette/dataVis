@@ -3,7 +3,9 @@ body {
     background-color: lightblue;
 }
 </style> -->
-
+<header>
+</header>
+<body>
 <h1>
   <a href="/dataVis/d3/index.html">D3 Visualization</a>
 </h1>
@@ -15,3 +17,4 @@ body {
 <h1>
   <a href="/dataVis/vega/index.html">Vega Visualization</a>
 </h1>
+</body>
