@@ -1,8 +1,11 @@
-<!-- <style>
+<style>
+header {
+    background-color: white;
+}
 body {
     background-color: lightblue;
 }
-</style> -->
+</style>
 <header>
 </header>
 <body>
