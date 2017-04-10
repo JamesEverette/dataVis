@@ -35,12 +35,12 @@ var spec = {
   "data": [
     {
       "name": "losses",
-      "url": "losses2015_transformed3.csv",
+      "url": "dataVis/vega/losses2015_transformed3.csv",
       "format": {"type": "csv", "parse": "auto"}
     },
     {
       "name": "states",
-      "url": "us-10m.json",
+      "url": "dataVis/vega/us-10m.json",
       "format": {"type": "topojson", "feature": "states"},
       "transform": [
         { "type": "lookup", "from": "losses", "key": "id", "fields": ["id"], "as": ["losses"] },
@@ -100,7 +100,7 @@ var spec2 = {
   "data": [
     {
       "name": "table",
-      "url": "losses2015_transformed2.csv",
+      "url": "dataVis/vega/losses2015_transformed2.csv",
       "format": {"type": "csv", "parse": "auto"}
     }
   ],
@@ -192,8 +192,6 @@ var view2 = new vega.View(vega.parse(spec2), {
 </div>
       </section>
     </div>
-    I divided values in barchart by 100,000 because I could not get my range to display bars when it was 6,000 to over 5 million.
-
     <footer>
       
     </footer>
