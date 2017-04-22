@@ -76,7 +76,7 @@
 
     <style type="text/css">
       body {
-        background-color: #272c36;
+        background-color: #576377;
         color: #ffffff;
       }
       
@@ -429,7 +429,7 @@
         svg.selectAll(".bar")
           .data(myData)
           .enter().append("rect").attr("id", "theseBars")
-          .attr("class", "bar").attr("fill", "blue")
+          .attr("class", "bar").attr("fill", "dodgerblue")
           .attr("x", function (d) { return x(d.State_Abbr2); })
           .attr("width", x.bandwidth())
           .attr("y", function (d) { if (again == false) { return y(d.rate2); } else { return y(d.rateA2) } })
@@ -499,7 +499,7 @@
           .data(myData)
           .enter().append("rect")
           .attr("id", "theseBars")
-          .attr("class", "bar").attr("fill", "blue")
+          .attr("class", "bar").attr("fill", "dodgerblue")
           .attr("x", function (d) { return x(d.State_Abbr2); })
           .attr("width", x.bandwidth())
           .attr("y", function (d) { if (again == false) { return y(d.dti2); } else { return y(d.dtiA2) } })
